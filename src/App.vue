@@ -21,9 +21,10 @@ export default {
   },
   mounted() {
     $('#btn').on('click', () => {
-      console.log('jquery引入成功')
+      console.log('已经jquery引入成功')
       console.log('测试一')
       console.log('测试二')
+      console.log('测试四')
     })
   },
   data() {

@@ -13,9 +13,9 @@
       <!-- 下划线 -->
       <div class="tabs-active-bar" :style="{width:lineWidth+'px',left:lineLeftWidth+'px'}"></div>
     </div>
-    <mt-button type="primary" id="btn">primary</mt-button>
-    <p>{{text | capitalize}}</p>
-    <List :list="list"></List>
+    <!-- <mt-button type="primary" id="btn">primary</mt-button> -->
+    <!-- <p>{{text | capitalize}}</p> -->
+    <List :list="list" @pull="pull" ref="list"></List>
   </div>
 </template>
 <script>
@@ -76,6 +76,12 @@ export default {
           this.list = data
         }
       })
+    },
+    pull() {
+      // 模拟接口
+      setTimeout(() => {
+        this._getList()
+      }, 1000)
     },
     getWidth() {
       this.lineWidth = this.$refs.label[0].childNodes[0].offsetWidth

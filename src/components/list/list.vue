@@ -18,15 +18,16 @@ export default {
       type: Array,
       default() {
         return []
-      }
-    }
+      },
+    },
   },
   created() {
-    setTimeout(() => {
-      this.list.forEach(item => {
-        this.$set(item, 'selectIcon', false)
-      })
-    }, 1000)
+    console.log(this.list)
+    // setTimeout(() => {
+    //   this.list.forEach(item => {
+    //     this.$set(item, 'selectIcon', false)
+    //   })
+    // }, 1000)
   },
   methods: {
     select(item) {
@@ -34,8 +35,8 @@ export default {
       //   this.$set(this.list, 'selectIcon', true)
       // }
       item.selectIcon = !item.selectIcon
-    }
-  }
+    },
+  },
 }
 </script>
 <style >

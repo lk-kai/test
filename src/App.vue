@@ -37,6 +37,9 @@ export default {
       console.log('jquery引入成功')
     })
     this.getWidth()
+    window.addEventListener('resize', () => {
+      this.getWidth()
+    })
   },
   data() {
     return {
@@ -52,6 +55,10 @@ export default {
           name: '评论',
           active: false,
         },
+        {
+          name: '我的商家',
+          active: false,
+        },
       ],
       lineWidth: 0,
       lineLeftWidth: 0,
@@ -61,7 +68,12 @@ export default {
     _getList() {
       axios.get('/api/list').then((res) => {
         if (res.data.code === 0) {
-          this.list = res.data.data
+          let data = res.data.data
+          // this.list = res.data.data
+          data.forEach((item) => {
+            item.selectIcon = false
+          })
+          this.list = data
         }
       })
     },

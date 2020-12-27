@@ -29,9 +29,14 @@ const routes = [
           index: 1
         },
         component: () => import(/* webpackChunkName: "about" */ '../view/list2/list2.vue'),
-      }
+      },
+
     ]
-  }
+  },
+  {
+    path: '/echarts',
+    component: () => import(/* webpackChunkName: "about" */ '../view/echarts/echarts.vue'),
+  },
 ]
 
 const router = new VueRouter({

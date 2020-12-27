@@ -1,5 +1,5 @@
 <template>
-  <div style="over">
+  <div>
     <div class="tab">
       <div
         class="tab-item"

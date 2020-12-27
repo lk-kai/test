@@ -47,6 +47,9 @@ export default {
       //   this.$set(this.list, 'selectIcon', true)
       // }
       item.selectIcon = !item.selectIcon
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
     },
     initScroll() {
       if (!this.scroll) {
@@ -135,7 +138,7 @@ h2 {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.5s;
 }
 .selectIcon {
   transform: rotate(135deg);

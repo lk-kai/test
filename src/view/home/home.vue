@@ -110,16 +110,24 @@ export default {
 .fade_right-leave-active,
 .fade_left-enter-active,
 .fade_left-leave-active {
+  width: 100%;
+  position: absolute;
   transition: all 0.5s;
 }
-.fade_left-enter,
-.fade_left-leave-to {
+.fade_left-enter {
   transform: translate3d(100%, 0, 0);
   opacity: 0;
 }
-.fade_right-enter,
-.fade_right-leave-to {
+.fade_left-leave-active {
   transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+}
+.fade_right-enter {
+  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+}
+.fade_right-leave-active {
+  transform: translate3d(100%, 0, 0);
   opacity: 0;
 }
 * {

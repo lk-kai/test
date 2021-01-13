@@ -1,10 +1,13 @@
 <template>
   <div class="wrap">
     <div ref="main" style="width: 100%;height:400px;"></div>
+    <mt-button type="primary" @click.native="handleClick">default</mt-button>
+    <el-button type="success" @click.native="handleClick2">成功按钮</el-button>
   </div>
 </template>
 <script>
 import echarts from 'echarts'
+import { Message } from 'element-ui'
 export default {
   mounted() {
     this._getInit()
@@ -34,9 +37,13 @@ export default {
       }
       myChart.setOption(option)
     },
+    handleClick() {
+      this.$Toast('提示信息')
+    },
+    handleClick2() {
+      Message('这是一条消息提示')
+    },
   },
 }
 </script>
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>

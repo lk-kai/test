@@ -62,20 +62,20 @@ export default {
           },
         })
         this.scroll.on('pullingDown', () => {
+          this.scroll.scrollTo(0, 50, 100)
           this.text = '正在刷新'
           this.$emit('pull')
         })
-        // this.scroll.on('scroll', (pos) => {
-        //   if (pos.y === 0) {
-        //     this.text = '下拉刷新'
-        //   }
-        // console.log(pos)
-        // if (pos.y > 50) {
-        //   this.text = '释放立即刷新'
-        // } else {
-        //   this.text = '下拉刷新'
-        // }
-        // })
+        this.scroll.on('scroll', (pos) => {
+          // console.log(pos.y)
+          if (pos.y > 50) {
+            this.text = '释放立即刷新'
+          } else if (pos.y < 50) {
+            this.text = '下拉刷新'
+          } else if (pos.y === 50) {
+            this.text = '正在刷新'
+          }
+        })
       } else {
         this.scroll.refresh()
       }
@@ -89,12 +89,13 @@ export default {
       this.text = '刷新成功'
       setTimeout(() => {
         // 在刷新数据完成之后，调用 finishPullDown 方法，回弹到顶部
+        this.scroll.scrollTo(0, -10, 100)
         this.finishPullDown()
       }, 600)
       setTimeout(() => {
         this.text = '下拉刷新'
         this.scroll.refresh()
-      }, 700)
+      }, 750)
       this.$nextTick(() => {
         this.scroll.refresh()
       })

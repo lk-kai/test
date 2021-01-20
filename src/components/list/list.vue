@@ -144,7 +144,8 @@ h2 {
   transform: rotate(135deg);
 }
 .list {
-  position: absolute;
+  /* 解决切换动画时有滚动条  */
+  position: fixed;
   top: 60px;
   bottom: 0px;
   width: 100%;

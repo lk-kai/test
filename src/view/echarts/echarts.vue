@@ -71,14 +71,13 @@ export default {
   },
   methods: {
     initScroll() {
-      if (!this.scroll) {
-        this.scroll = new BetterScroll(this.$refs.wrap, {
-          scrollY: true,
-          click: true,
-        })
-      } else {
-        this.scroll.refresh()
+      if (!this.$refs.wrap) {
+        return
       }
+      this.scroll = new BetterScroll(this.$refs.wrap, {
+        scrollY: true,
+        click: true,
+      })
     },
     skip() {
       if (this.checkSlide()) {
@@ -179,6 +178,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
 .list-item {
   position: relative;

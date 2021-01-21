@@ -52,33 +52,32 @@ export default {
       })
     },
     initScroll() {
-      if (!this.scroll) {
-        this.scroll = new BetterScroll(this.$refs.wrapper, {
-          scrollY: true,
-          click: true,
-          pullDownRefresh: {
-            threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-            stop: 50, // 刷新数据的过程中，回弹停留在距离顶部还有 50px 的位置
-          },
-        })
-        this.scroll.on('pullingDown', () => {
-          this.scroll.scrollTo(0, 50, 100)
-          this.text = '正在刷新'
-          this.$emit('pull')
-        })
-        this.scroll.on('scroll', (pos) => {
-          // console.log(pos.y)
-          if (pos.y > 50) {
-            this.text = '释放立即刷新'
-          } else if (pos.y < 50) {
-            this.text = '下拉刷新'
-          } else if (pos.y === 50) {
-            this.text = '正在刷新'
-          }
-        })
-      } else {
-        this.scroll.refresh()
+      if (!this.$refs.wrapper) {
+        return
       }
+      this.scroll = new BetterScroll(this.$refs.wrapper, {
+        scrollY: true,
+        click: true,
+        pullDownRefresh: {
+          threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
+          stop: 50, // 刷新数据的过程中，回弹停留在距离顶部还有 50px 的位置
+        },
+      })
+      this.scroll.on('pullingDown', () => {
+        this.scroll.scrollTo(0, 50, 100)
+        this.text = '正在刷新'
+        this.$emit('pull')
+      })
+      this.scroll.on('scroll', (pos) => {
+        // console.log(pos.y)
+        if (pos.y > 50) {
+          this.text = '释放立即刷新'
+        } else if (pos.y < 50) {
+          this.text = '下拉刷新'
+        } else if (pos.y === 50) {
+          this.text = '正在刷新'
+        }
+      })
     },
     finishPullDown() {
       this.scroll.finishPullDown()

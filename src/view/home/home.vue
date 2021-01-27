@@ -18,6 +18,7 @@
         <router-view></router-view>
       </keep-alive>
     </transition>
+    <button @click="next">echarts</button>
   </div>
 </template>
 <script>
@@ -80,6 +81,9 @@ export default {
       this.tabsList[index].active = true
       this.$router.push(item.url)
     },
+    next() {
+      this.$router.push('/echarts')
+    },
   },
   filters: {
     capitalize: function () {
@@ -105,7 +109,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .fade_right-enter-active,
 .fade_right-leave-active,
 .fade_left-enter-active,
@@ -166,5 +170,19 @@ span {
   background-color: #409eff;
   z-index: 1;
   transition: all 0.3s;
+}
+button {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  border: 0;
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #409eff;
+  color: #fff;
+  opacity: 0.6;
+  border-radius: 5px;
+  cursor: pointer;
 }
 </style>

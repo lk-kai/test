@@ -102,7 +102,7 @@ export default {
   },
 }
 </script>
-<style >
+<style scoped>
 .a {
   padding: 0 20px;
   position: relative;

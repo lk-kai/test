@@ -34,7 +34,9 @@ const routes = [
     ]
   },
   {
+    // path: '/echarts/:id',
     path: '/echarts',
+    name: 'Echarts',
     component: () => import(/* webpackChunkName: "about" */ '../view/echarts/echarts.vue'),
   },
 ]

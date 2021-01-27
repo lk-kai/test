@@ -20,7 +20,7 @@
         </li>
       </ul>
       <div ref="main" style="width: 100%;height:400px;"></div>
-      <mt-button type="primary" @click.native="handleClick">default</mt-button>
+      <mt-button type="primary" @click.native="handleClick">返回</mt-button>
       <el-button type="success" @click.native="handleClick2">成功按钮</el-button>
     </div>
   </div>
@@ -62,6 +62,10 @@ export default {
       startX: 0,
       endX: 0,
     }
+  },
+  created() {
+    // console.log(this.$route.query)
+    // console.log(this.$route.params)
   },
   mounted() {
     this._getInit()
@@ -163,7 +167,8 @@ export default {
       myChart.setOption(option)
     },
     handleClick() {
-      this.$Toast('提示信息')
+      // this.$Toast('提示信息')
+      this.$router.go(-1)
     },
     handleClick2() {
       Message('这是一条消息提示')

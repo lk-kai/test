@@ -88,7 +88,7 @@ export default {
       this.text = '刷新成功'
       setTimeout(() => {
         // 在刷新数据完成之后，调用 finishPullDown 方法，回弹到顶部
-        this.scroll.scrollTo(0, -10, 100)
+        this.scroll.scrollTo(0, 0, 100)
         this.finishPullDown()
       }, 600)
       setTimeout(() => {

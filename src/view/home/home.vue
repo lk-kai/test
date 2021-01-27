@@ -18,7 +18,7 @@
         <router-view></router-view>
       </keep-alive>
     </transition>
-    <button @click="next">echarts</button>
+    <button @click="next()">echarts</button>
   </div>
 </template>
 <script>
@@ -82,7 +82,23 @@ export default {
       this.$router.push(item.url)
     },
     next() {
+      // 传参 不在路由配置找不到页面
       this.$router.push('/echarts')
+      // this.$router.push(`/echarts/2`)
+      // this.$router.push({
+      //   path: '/echarts',
+      //   query: {
+      //     id: 1,
+      //     name: '张三',
+      //   },
+      // })
+      // this.$router.push({
+      //   name: 'Echarts',
+      //   params: {
+      //     id: 1,
+      //     name: '张三',
+      //   },
+      // })
     },
   },
   filters: {

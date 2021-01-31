@@ -21,14 +21,17 @@
       </ul>
       <div ref="main" style="width: 100%;height:400px;"></div>
       <mt-button type="primary" @click.native="handleClick">返回</mt-button>
-      <el-button type="success" @click.native="handleClick2">成功按钮</el-button>
+      <el-button type="success" @click.native="handleClick2">轮播图</el-button>
+      <mt-button type="primary" @click.native="handleClick3">遮罩层</mt-button>
     </div>
+    <Mark ref="mark"></Mark>
   </div>
 </template>
 <script>
 import echarts from 'echarts'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import BetterScroll from 'better-scroll'
+import Mark from '../../components/mask/mask'
 
 export default {
   data() {
@@ -171,8 +174,15 @@ export default {
       this.$router.go(-1)
     },
     handleClick2() {
-      Message('这是一条消息提示')
+      // Message('这是一条消息提示')
+      this.$router.push('/banner')
     },
+    handleClick3() {
+      this.$refs.mark.show()
+    },
+  },
+  components: {
+    Mark,
   },
 }
 </script>

@@ -1,25 +1,34 @@
 <template>
-  <div class="slide-banner" v-if="banner.length">
-    <div class="banner-wrapper">
-      <div class="slide-banner-wrapper" ref="slide">
-        <div class="slide-banner-content">
-          <div v-for="(item,index) in banner" class="slide-page" :key="index">
-            <img :src="item.picUrl" alt />
+  <div class="wrap">
+    <div class="slide-banner" v-if="banner.length">
+      <div class="banner-wrapper">
+        <div class="slide-banner-wrapper" ref="slide">
+          <div class="slide-banner-content">
+            <div v-for="(item,index) in banner" class="slide-page" :key="index">
+              <img :src="item.picUrl" alt />
+            </div>
           </div>
         </div>
+        <div class="dots-wrapper">
+          <span
+            class="dot"
+            v-for="(item, index) in banner"
+            :key="index"
+            :class="{'active': currentPageIndex ===index}"
+          ></span>
+        </div>
       </div>
-      <div class="dots-wrapper">
-        <span
-          class="dot"
-          v-for="(item, index) in banner"
-          :key="index"
-          :class="{'active': currentPageIndex ===index}"
-        ></span>
-      </div>
-    </div>
-    <div class="btn-wrap">
+      <!-- <div class="btn-wrap">
       <button class="next" @click="nextPage">nextPage</button>
       <button class="prev" @click="prePage">prePage</button>
+      </div>-->
+    </div>
+    <div class="mouse-wheel-vertical-scroll">
+      <div class="mouse-wheel-wrapper" ref="scroll">
+        <div class="mouse-wheel-content">
+          <div class="mouse-wheel-item" v-for="n in 100" :key="n">{{n}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -37,10 +46,7 @@ export default {
     this._getRecommend()
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   console.log(this.$refs.slide.children[0], this.banner)
-    //   //   this.init()
-    // })
+    this.init2()
   },
   beforeDestroy() {
     this.slide.destroy()
@@ -69,6 +75,11 @@ export default {
       this.slide.on('scrollEnd', this._onScrollEnd)
       this.slide.on('slideWillChange', (page) => {
         this.currentPageIndex = page.pageX
+      })
+    },
+    init2() {
+      this.scroll = new BScroll(this.$refs.scroll, {
+        mouseWheel: true,
       })
     },
     _onScrollEnd() {
@@ -126,5 +137,23 @@ export default {
       color: #fff
       border-radius: 4px
       background-color: #666
+.mouse-wheel-vertical-scroll
+  .mouse-wheel-wrapper
+    position: absolute
+    top: 200px
+    bottom: 0
+    left: 0
+    right: 0
+    overflow: hidden
+    .mouse-wheel-item
+      height: 50px
+      line-height: 50px
+      font-size: 20px
+      font-weight: bold
+      text-align: center
+      &:nth-child(2n)
+        background-color: #C3D899
+      &:nth-child(2n+1)
+        background-color: #F2D4A7
 </style>
   

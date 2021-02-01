@@ -118,6 +118,7 @@ export default {
       // console.log(from.meta.index)
       // const fromIndex = from.mata.index
       this.transtionname = to.meta.index < from.meta.index ? 'fade_right' : 'fade_left'
+      this.getWidth()
       // console.log(this.$route)
       // this.tabclick(to)
     },

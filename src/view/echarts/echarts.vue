@@ -2,7 +2,12 @@
   <div class="wrap" ref="wrap">
     <div class="main">
       <ul>
-        <li class="list-item" v-for="(item,index) in list " :key="index" data-type="0">
+        <li
+          class="list-item"
+          v-for="(item, index) in list"
+          :key="index"
+          data-type="0"
+        >
           <div
             class="list-box"
             @touchstart.capture="touchStart"
@@ -11,18 +16,21 @@
           >
             <img class="list-img" :src="item.imgUrl" alt />
             <div class="list-content">
-              <p class="title">{{item.title}}</p>
-              <p class="tips">{{item.tips}}</p>
-              <p class="time">{{item.time}}</p>
+              <p class="title">{{ item.title }}</p>
+              <p class="tips">{{ item.tips }}</p>
+              <p class="time">{{ item.time }}</p>
             </div>
           </div>
           <div class="delete" @click="deleteItem" :data-index="index">删除</div>
         </li>
       </ul>
-      <div ref="main" style="width: 100%;height:400px;"></div>
+      <div ref="main" style="width: 100%; height: 400px"></div>
       <mt-button type="primary" @click.native="handleClick">返回</mt-button>
       <el-button type="success" @click.native="handleClick2">轮播图</el-button>
       <mt-button type="primary" @click.native="handleClick3">遮罩层</mt-button>
+      <mt-button type="danger" @click.native="handleClick4">请求数据</mt-button>
+      <mt-button type="danger" @click.native="handleClick5">按钮节流</mt-button>
+      <mt-search v-model="value" ref="input"></mt-search>
     </div>
     <Mark ref="mark"></Mark>
   </div>
@@ -32,46 +40,84 @@ import echarts from 'echarts'
 // import { Message } from 'element-ui'
 import BetterScroll from 'better-scroll'
 import Mark from '../../components/mask/mask'
-
+import { getList1 } from '../../api'
+// 加上一个开关防止连续点击按钮
+let flag = true
+//  节流函数
+function throttle(fn, delay = 1000) {
+  let timer = null
+  return function() {
+    if (timer) {
+      return
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
+  }
+}
+// 防抖函数
+function debounce(fn, delay = 1000) {
+  let timer = null
+  return function() {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
+  }
+}
+var that
 export default {
   data() {
     return {
+      value: '',
       list: [
         {
           title: 'Chrome更新了',
           imgUrl: require('../../assets/images/Chrome.png'),
           tips: '不再支持Flash视频播放',
-          time: '上午 8:30',
+          time: '上午 8:30'
         },
         {
           title: '电影新资讯',
           imgUrl: require('../../assets/images/Sina.png'),
-          tips: '电影《红海行动》上映以来票房暴涨，很多国人表示对国产电影有了新的改观',
-          time: '上午 12:00',
+          tips:
+            '电影《红海行动》上映以来票房暴涨，很多国人表示对国产电影有了新的改观',
+          time: '上午 12:00'
         },
         {
           title: '聚焦两会·共筑中国梦',
           imgUrl: require('../../assets/images/video.png'),
           tips: '习近平代表的两会故事',
-          time: '下午 17:45',
+          time: '下午 17:45'
         },
         {
           title: '微信团队',
           imgUrl: require('../../assets/images/Wechat.png'),
           tips: '您的帐号有异常登录，如非本人操作，请及时修改密码',
-          time: '昨天',
-        },
+          time: '昨天'
+        }
       ],
       startX: 0,
-      endX: 0,
+      endX: 0
     }
   },
   created() {
+    that = this
     // console.log(this.$route.query)
     // console.log(this.$route.params)
   },
   mounted() {
     this._getInit()
+    this.$refs.input.$el.addEventListener(
+      'input',
+      debounce(function() {
+        console.log(that.value)
+      }, 1000)
+    )
     this.$nextTick(() => {
       this.initScroll()
     })
@@ -83,7 +129,7 @@ export default {
       }
       this.scroll = new BetterScroll(this.$refs.wrap, {
         scrollY: true,
-        click: true,
+        click: true
       })
     },
     skip() {
@@ -97,7 +143,6 @@ export default {
     touchStart(e) {
       // 记录初始位置
       this.startX = e.touches[0].clientX
-      console.log(this.startX)
     },
     //滑动结束
     touchEnd(e) {
@@ -149,23 +194,23 @@ export default {
       var myChart = echarts.init(this.$refs.main)
       var option = {
         title: {
-          text: 'ECharts 入门示例',
+          text: 'ECharts 入门示例'
         },
         tooltip: {},
         legend: {
-          data: ['销量'],
+          data: ['销量']
         },
         xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
         },
         yAxis: {},
         series: [
           {
             name: '销量',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20],
-          },
-        ],
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
       }
       myChart.setOption(option)
     },
@@ -180,10 +225,38 @@ export default {
     handleClick3() {
       this.$refs.mark.show()
     },
+    handleClick4() {
+      if (flag) {
+        flag = false
+        this.getlist()
+        setTimeout(() => {
+          flag = true
+        }, 5000)
+      }
+    },
+    getlist() {
+      getList1()
+        .then((result) => {
+          console.log(result)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    handleClick5: throttle(() => {
+      console.log(1)
+    }, 3000)
   },
   components: {
-    Mark,
+    Mark
   },
+  watch: {
+    value(newval) {
+      debounce(function() {
+        console.log(newval)
+      }, 1000)
+    }
+  }
 }
 </script>
 <style scoped>

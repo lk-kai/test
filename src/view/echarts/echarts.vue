@@ -112,6 +112,7 @@ export default {
   },
   mounted() {
     this._getInit()
+    // input 防抖处理
     this.$refs.input.$el.addEventListener(
       'input',
       debounce(function() {
@@ -251,10 +252,9 @@ export default {
     Mark
   },
   watch: {
-    value(newval) {
-      debounce(function() {
-        console.log(newval)
-      }, 1000)
+    value() {
+      //input  节流处理
+      this.handleClick5()
     }
   }
 }

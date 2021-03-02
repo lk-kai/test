@@ -1,12 +1,18 @@
 <template>
   <div class="list" ref="wrapper">
     <ul>
-      <p>{{text}}</p>
-      <li v-for="(item, index) in list" :key="index" class="item" @click="select(item,index)">
+      <p>{{ text }}</p>
+      <li
+        v-for="(item, index) in list"
+        :key="index"
+        class="item"
+        @click="select(item, index)"
+        ref="lists"
+      >
         <div class="a">
-          <h2>{{item.title}}</h2>
-          <span :class="{'content':!item.selectIcon}">{{item.content}}</span>
-          <span class="icon" :class="{'selectIcon':item.selectIcon}"></span>
+          <h2>{{ item.title }}</h2>
+          <span :class="{ content: !item.selectIcon }">{{ item.content }}</span>
+          <span class="icon" :class="{ selectIcon: item.selectIcon }"></span>
         </div>
       </li>
     </ul>
@@ -14,14 +20,17 @@
 </template>
 <script>
 import BetterScroll from 'better-scroll'
+window.addEventListener('resize', () => {
+  console.log(1)
+})
 export default {
   props: {
     list: {
       type: Array,
       default() {
         return []
-      },
-    },
+      }
+    }
   },
   created() {
     // console.log(this.list)
@@ -35,13 +44,28 @@ export default {
     this.$nextTick(() => {
       this.initScroll()
     })
+    setTimeout(() => {
+      console.log(this.$refs.lists[0])
+      console.log(this.listsHeight())
+    }, 20)
   },
   data() {
     return {
-      text: '下拉刷新',
+      text: '下拉刷新'
     }
   },
   methods: {
+    listsHeight() {
+      let heights = []
+      let height = 0
+      heights.push(height)
+      for (let index = 0; index < this.$refs.lists.length; index++) {
+        const element = this.$refs.lists[index]
+        height += element.clientHeight
+        heights.push(height)
+      }
+      return heights
+    },
     select(item) {
       // if (!item.selectIcon) {
       //   this.$set(this.list, 'selectIcon', true)
@@ -60,8 +84,8 @@ export default {
         click: true,
         pullDownRefresh: {
           threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-          stop: 50, // 刷新数据的过程中，回弹停留在距离顶部还有 50px 的位置
-        },
+          stop: 50 // 刷新数据的过程中，回弹停留在距离顶部还有 50px 的位置
+        }
       })
       this.scroll.on('pullingDown', () => {
         this.scroll.scrollTo(0, 50, 100)
@@ -81,7 +105,7 @@ export default {
     },
     finishPullDown() {
       this.scroll.finishPullDown()
-    },
+    }
   },
   watch: {
     list() {
@@ -98,8 +122,8 @@ export default {
       this.$nextTick(() => {
         this.scroll.refresh()
       })
-    },
-  },
+    }
+  }
 }
 </script>
 <style scoped>

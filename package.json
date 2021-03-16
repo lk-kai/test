@@ -12,11 +12,14 @@
   "dependencies": {
     "axios": "^0.19.2",
     "better-scroll": "^2.0.6",
+    "compression-webpack-plugin": "^5.0.1",
     "core-js": "^3.6.4",
     "echarts": "^4.9.0",
     "element-ui": "^2.14.1",
     "jquery": "^3.5.1",
     "mint-ui": "^2.2.13",
+    "terser-webpack-plugin": "^4.2.3",
+    "view-design": "^4.5.0",
     "vue": "^2.6.11",
     "vue-lazy": "0.1.0-alpha.1",
     "vue-router": "^3.4.9"
@@ -28,9 +31,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
     "stylus": "^0.54.7",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^3.0.2",
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,

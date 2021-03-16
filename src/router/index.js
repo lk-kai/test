@@ -10,7 +10,12 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/login'
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../view/login/login.vue'),
   },
   {
     path: '/home',
@@ -48,5 +53,12 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach(function(to, from, next) {
+    if (!localStorage.getItem("token")) {
+        if (to.path !== '/login') {
+            return next('/login')
+        }
+    }
+    next()
+})
 export default router

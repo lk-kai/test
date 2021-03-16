@@ -1,7 +1,10 @@
 var appData = require('./data.json')
 var list = appData.list
 var list2 = appData.list2
+const path = require('path')
 const axios = require('axios')
+const TerserPlugin = require('terser-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
   devServer: {
     before: function (app) {
@@ -54,6 +57,36 @@ module.exports = {
           console.log(e)
         })
       })
+    }
+  },
+  configureWebpack:{
+    plugins:[
+      new CompressionPlugin({
+        test: /\.js$|\.html$|\.css/,
+        // threshold: 10240,
+        deleteOriginalAssets: false
+      })
+    ],
+    resolve: {
+      alias: {
+        '@': path.join(__dirname, 'src')
+      }
+    },
+    optimization:{
+      minimizer:[
+        new TerserPlugin({
+          terserOptions:{
+            ecma:undefined,
+            warnings:false,
+            parse:{},
+            compress:{
+              drop_console:true,
+              drop_debugger:false,
+              pure_funcs:['console.log']
+            }
+          }
+        })
+      ]
     }
   }
 }

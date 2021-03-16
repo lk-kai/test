@@ -1,11 +1,11 @@
 import axios from 'axios'
-var instance = axios.create({ timeout: 1000 })
+var instance = axios.create({ timeout: 1000,baseURL: process.env.VUE_APP_SERVER_URL})
 // axios的全局配置
 instance.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded'
 instance.defaults.headers.common['Authorization'] = localStorage.getItem(
   'token'
-)
+) || ''
 
 // 添加请求拦截器(post只能接受字符串类型数据)
 instance.interceptors.request.use(

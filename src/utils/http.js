@@ -2,7 +2,7 @@ import axios from 'axios'
 var instance = axios.create({ timeout: 1000,baseURL: process.env.VUE_APP_SERVER_URL})
 // axios的全局配置
 instance.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
+  'application/x-www-form-urlencoded; charset=UTF-8'
 instance.defaults.headers.common['Authorization'] = localStorage.getItem(
   'token'
 ) || ''
@@ -40,6 +40,7 @@ const errorHandle = (status, other) => {
       console.log('信息校验失败')
       break
     case 401:
+      localStorage.removeItem("token");
       console.log('认证失败')
       break
     case 403:

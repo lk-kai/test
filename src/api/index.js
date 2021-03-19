@@ -6,6 +6,31 @@ const commonParams = {
   notice: 0,
   format: 'jsonp'
 }
+export const login = function(param) {
+  return axios.post('/api/quailebs/account/authenticate', {
+    ...param
+  })
+}
+export const add = function(param) {
+  return axios.post('/api/quailebs/qhrm/user/addMember', {
+    ...param
+  })
+}
+export const comments = function(param) {
+  return axios.post('/api/quailebs/qhrm/user/member/comments', {
+    ...param
+  })
+}
+export const edit = function(param) {
+  return axios.post('/api/quailebs/qhrm/user/putMember', {
+    ...param
+  })
+}
+export const getAll = function(param) {
+  return axios.post('/api/quailebs/qhrm/user/member/page', {
+    ...param
+  })
+}
 export function getList1() {
   return axios
     .get('/api/list', {})

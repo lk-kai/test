@@ -2,13 +2,8 @@
   <transition name="move">
     <div class="wrap" v-show="mark" @touchmove.stop @click.stop="hide">
       <div class="content" @click.stop>
-        <span>11111</span>
-        <span>11111</span>
-        <span>11111</span>
-        <span>11111</span>
-        <span>11111</span>
-        <span>11111</span>
-        <span>11111</span>
+        优惠折扣: <input type="text" v-model="comments" />%
+        <button @click="sub">确定</button>
       </div>
     </div>
   </transition>
@@ -18,6 +13,7 @@ export default {
   data() {
     return {
       mark: false,
+      comments: ''
     }
   },
   methods: {
@@ -27,7 +23,10 @@ export default {
     hide() {
       this.mark = false
     },
-  },
+    sub() {
+      this.$emit('sub', this.comments)
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped>
@@ -42,7 +41,7 @@ export default {
   right: 0
   bottom: 0
   background: rgba(0, 0, 0, 0.3)
-  z-index: 100
+  z-index: 1100
   .content
     position: absolute
     top: 0

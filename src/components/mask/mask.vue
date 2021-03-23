@@ -4,6 +4,14 @@
       <div class="content" @click.stop>
         优惠折扣: <input type="text" v-model="comments" />%
         <button @click="sub">确定</button>
+        <span>11111</span>
+        <span>11111</span>
+        <span>11111</span>
+        <span>11111</span>
+        <span>11111</span>
+        <span>11111</span>
+        <span>11111</span>
+        {{ item.title }}
       </div>
     </div>
   </transition>
@@ -13,7 +21,11 @@ export default {
   data() {
     return {
       mark: false,
+<<<<<<< Updated upstream
       comments: ''
+=======
+      item: {}
+>>>>>>> Stashed changes
     }
   },
   methods: {
@@ -22,9 +34,12 @@ export default {
     },
     hide() {
       this.mark = false
+<<<<<<< Updated upstream
     },
     sub() {
       this.$emit('sub', this.comments)
+=======
+>>>>>>> Stashed changes
     }
   }
 }

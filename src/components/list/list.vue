@@ -74,6 +74,7 @@ export default {
       this.$nextTick(() => {
         this.scroll.refresh()
       })
+      this.$emit('a', item)
     },
     initScroll() {
       if (!this.$refs.wrapper) {

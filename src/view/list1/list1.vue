@@ -1,23 +1,34 @@
 <template>
-  <List :list="list" @pull="pull" ref="list"></List>
+  <div>
+    <List :list="list" @pull="pull" ref="list" @a="a"></List>
+    <Mark ref="mark"></Mark>
+  </div>
 </template>
 <script>
 import List from '../../components/list/list'
+import Mark from '../../components/mask/mask'
+
 import { getList1 } from '../../api'
 
 export default {
   data() {
     return {
-      list: [],
+      list: []
     }
   },
   components: {
     List,
+    Mark
   },
   created() {
     this._getList()
   },
   methods: {
+    a(item) {
+      console.log(item)
+      this.$refs.mark.item = item
+      this.$refs.mark.show()
+    },
     _getList() {
       getList1()
         .then((res) => {
@@ -36,9 +47,8 @@ export default {
       setTimeout(() => {
         this._getList()
       }, 1000)
-    },
-  },
+    }
+  }
 }
 </script>
-<style lang="" scoped>
-</style>
+<style lang="" scoped></style>

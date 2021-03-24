@@ -21,11 +21,8 @@ export default {
   data() {
     return {
       mark: false,
-<<<<<<< Updated upstream
-      comments: ''
-=======
+      comments: '',
       item: {}
->>>>>>> Stashed changes
     }
   },
   methods: {
@@ -34,12 +31,9 @@ export default {
     },
     hide() {
       this.mark = false
-<<<<<<< Updated upstream
     },
     sub() {
       this.$emit('sub', this.comments)
-=======
->>>>>>> Stashed changes
     }
   }
 }

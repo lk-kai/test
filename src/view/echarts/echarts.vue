@@ -29,6 +29,8 @@
       <el-button type="success" @click.native="handleClick2">轮播图</el-button>
       <mt-button type="primary" @click.native="handleClick3">遮罩层</mt-button>
       <mt-button type="danger" @click.native="handleClick4">请求数据</mt-button>
+
+      {{ item.title }}
       <mt-button type="danger" @click.native="handleClick5">按钮节流</mt-button>
       <mt-search v-model="value" ref="input"></mt-search>
     </div>
@@ -74,6 +76,7 @@ export default {
   data() {
     return {
       value: '',
+      item: {},
       list: [
         {
           title: 'Chrome更新了',
@@ -107,6 +110,7 @@ export default {
   },
   created() {
     that = this
+    this.getlist()
     // console.log(this.$route.query)
     // console.log(this.$route.params)
   },
@@ -238,7 +242,8 @@ export default {
     getlist() {
       getList1()
         .then((result) => {
-          console.log(result)
+          console.log(result[0])
+          this.item = result[0]
         })
         .catch((err) => {
           console.log(err)

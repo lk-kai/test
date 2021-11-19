@@ -4,6 +4,7 @@
     :visible.sync="show"
     width="30%"
     :modal-append-to-body="false"
+    :show-close="false"
   >
     <span>这是一段信息</span>
     <span slot="footer" class="dialog-footer">

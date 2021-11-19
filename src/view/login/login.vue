@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
     <div class="login">
+      <countTo :startVal="0" :endVal="endVal || 0" :duration="700"></countTo>
       <Input
         v-model="accountId"
         placeholder="Enter username..."
@@ -16,34 +17,50 @@
       />
       <Button type="success" style="width:300px" @click="submit">SUBMIT</Button>
     </div>
+    <tip :show.sync="show"></tip>
   </div>
 </template>
 <script>
-import { login } from '@/api'
+// import { login } from '@/api'
+import countTo from 'vue-count-to'
+import tip from '../../components/dialog/dialog.vue'
 export default {
   data() {
     return {
+      // startVal: 0,
+      endVal: 0,
       accountId: 'admin',
-      credentials: '12345678'
+      credentials: 'a',
+      show: false
     }
+  },
+  components: {
+    tip,
+    countTo
+  },
+  created() {
+    setTimeout(() => {
+      this.endVal = 9837
+    }, 50)
   },
   methods: {
     submit() {
-      login({
-        accountId: this.accountId,
-        credentials: this.credentials
-      })
-        .then((res) => {
-          // console.log(res)
-          if (res.status == '200') {
-            window.localStorage.setItem('token', res.data.token)
-            // window.localStorage.setItem('t1n', 1)
-            this.$router.push('/home1')
-          }
-        })
-        .catch((err) => {
-          err
-        })
+      this.show = true
+      // login({
+      //   accountId: this.accountId,
+      //   credentials: this.credentials
+      // })
+      //   .then(res => {
+      //     // console.log(res)
+      //     if (res.status == '200') {
+      //       window.localStorage.setItem('token', res.data.token)
+      //       // window.localStorage.setItem('t1n', 1)
+      //       this.$router.push('/home1')
+      //     }
+      //   })
+      //   .catch(err => {
+      //     err
+      //   })
     }
   }
 }

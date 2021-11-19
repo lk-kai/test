@@ -49,7 +49,7 @@ export default {
           url: '/home/list1',
         },
         {
-          name: '列表2',
+          name: '列表qw2',
           active: false,
           url: '/home/list2',
         },

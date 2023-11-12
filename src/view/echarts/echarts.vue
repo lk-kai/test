@@ -25,10 +25,12 @@
         </li>
       </ul>
       <div ref="main" style="width: 100%; height: 400px"></div>
-      <mt-button type="primary" @click.native="handleClick">返回</mt-button>
-      <el-button type="success" @click.native="handleClick2">轮播图</el-button>
-      <mt-button type="primary" @click.native="handleClick3">遮罩层</mt-button>
-      <mt-button type="danger" @click.native="handleClick4">请求数据</mt-button>
+      <mt-button type="primary" @click.native="_getInit('bar')">柱状图</mt-button>
+      <mt-button type="primary" @click.native="_getInit('line')">折线图</mt-button>
+<!--      <mt-button type="primary" @click.native="handleClick">返回</mt-button>-->
+<!--      <el-button type="success" @click.native="handleClick2">轮播图</el-button>-->
+<!--      <mt-button type="primary" @click.native="handleClick3">遮罩层</mt-button>-->
+<!--      <mt-button type="danger" @click.native="handleClick4">请求数据</mt-button>-->
 
       {{ item.title }}
       <mt-button type="danger" @click.native="handleClick5">按钮节流</mt-button>
@@ -109,13 +111,14 @@ export default {
     }
   },
   created() {
+    this.type = 'bar'
     that = this
     this.getlist()
     // console.log(this.$route.query)
     // console.log(this.$route.params)
   },
   mounted() {
-    this._getInit()
+    this._getInit('bar')
     // input 防抖处理
     this.$refs.input.$el.addEventListener(
       'input',
@@ -195,29 +198,44 @@ export default {
       // 删除
       this.list.splice(index, 1)
     },
-    _getInit() {
-      var myChart = echarts.init(this.$refs.main)
-      var option = {
-        title: {
-          text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-          data: ['销量']
-        },
-        xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-        },
-        yAxis: {},
-        series: [
-          {
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-          }
-        ]
+    _getInit(type) {
+      // this.type = type
+      this.myChart = echarts.init(this.$refs.main)
+      let option = {}
+      if (type === 'bar') {
+        option = {
+          title: {
+            text: 'ECharts 入门示例'
+          },
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: {},
+          series: [
+            {
+              name: '销量',
+              type: 'bar',
+              data: [5, 20, 36, 10, 10, 20]
+            }
+          ]
+        }
+      } else if (type === 'line') {
+        option = {
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: {
+          },
+          series: [
+            {
+              data: [5, 20, 36, 10, 10, 20],
+              type: 'line'
+            }
+          ]
+        };
       }
-      myChart.setOption(option)
+
+      this.myChart.setOption(option)
     },
     handleClick() {
       // this.$Toast('提示信息')

@@ -5,18 +5,24 @@ Vue.use(VueRouter)
 // 解决重复跳转同一路由报错
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err)
+  return originalPush.call(this, location).catch(err => err)
 }
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login1'
   },
   {
     path: '/login',
     name: 'Login',
     component: () =>
       import(/* webpackChunkName: "about" */ '../view/login/login.vue')
+  },
+  {
+    path: '/login1',
+    name: 'Login1',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../view/login/login1.vue')
   },
   {
     path: '/home1',
@@ -72,12 +78,14 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-router.beforeEach(function(to, from, next) {
-  if (!localStorage.getItem('token')) {
-    if (to.path !== '/login') {
-      return next('/login')
-    }
-  }
-  next()
-})
+// router.beforeEach(function(to, from, next) {
+//   console.log(1)
+//   if (!localStorage.getItem('token')) {
+//     console.log(1)
+//     if (to.path !== '/login') {
+//       return next('/login')
+//     }
+//   }
+//   next()
+// })
 export default router

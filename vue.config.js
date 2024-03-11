@@ -6,6 +6,7 @@ const axios = require('axios')
 const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   devServer: {
+    disableHostCheck: true,
     proxy: {
       '/api': {
         //将www.exaple.com印射为/apis
@@ -72,27 +73,17 @@ module.exports = {
       })
     }
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@': path.join(__dirname, 'src')
+  configureWebpack: config => {
+    config.module.rules.push({
+      test: /\.worker.js$/,
+      use: {
+        loader: 'worker-loader',
+        options: { inline: true, name: 'workerName.[hash].js' }
       }
-    },
-    optimization: {
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            ecma: undefined,
-            warnings: false,
-            parse: {},
-            compress: {
-              drop_console: true,
-              drop_debugger: false,
-              pure_funcs: ['console.log']
-            }
-          }
-        })
-      ]
-    }
+    })
+  },
+  parallel: false,
+  chainWebpack: config => {
+    config.output.globalObject('this')
   }
 }

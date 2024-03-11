@@ -2,7 +2,7 @@
   <transition name="move">
     <div class="wrap" v-show="mark" @touchmove.stop @click.stop="hide">
       <div class="content" @click.stop>
-        优惠折扣: <input type="text" v-model="comments" />%
+        优惠折扣: <input type="text" v-model="row.comments" />%
         <button @click="sub">确定</button>
         <span>11111</span>
         <span>11111</span>
@@ -18,12 +18,23 @@
 </template>
 <script>
 export default {
+  props: {
+    row: {
+      require: true,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       mark: false,
       comments: '',
       item: {}
     }
+  },
+  created() {
+    console.log(this.row, 1)
   },
   methods: {
     show() {

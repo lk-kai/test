@@ -33,7 +33,7 @@ export default {
     }
   },
   created() {
-    // console.log(this.list)
+    console.log(this.list)
     // setTimeout(() => {
     //   this.list.forEach(item => {
     //     this.$set(item, 'selectIcon', false)
@@ -41,13 +41,11 @@ export default {
     // }, 1000)
   },
   mounted() {
-    this.$nextTick(() => {
+    // setTimeout(() => {
       this.initScroll()
-    })
-    setTimeout(() => {
       console.log(this.$refs.lists[0])
       console.log(this.listsHeight())
-    }, 20)
+    // }, 20)
   },
   data() {
     return {
@@ -93,7 +91,7 @@ export default {
         this.text = '正在刷新'
         this.$emit('pull')
       })
-      this.scroll.on('scroll', (pos) => {
+      this.scroll.on('scroll', pos => {
         // console.log(pos.y)
         if (pos.y > 50) {
           this.text = '释放立即刷新'
@@ -105,7 +103,7 @@ export default {
       })
     },
     finishPullDown() {
-      this.scroll.finishPullDown()
+      this.scroll&&this.scroll.finishPullDown()
     }
   },
   watch: {
@@ -113,15 +111,15 @@ export default {
       this.text = '刷新成功'
       setTimeout(() => {
         // 在刷新数据完成之后，调用 finishPullDown 方法，回弹到顶部
-        this.scroll.scrollTo(0, 0, 100)
+        this.scroll&&this.scroll.scrollTo(0, 0, 100)
         this.finishPullDown()
       }, 600)
       setTimeout(() => {
         this.text = '下拉刷新'
-        this.scroll.refresh()
+        this.scroll&&this.scroll.refresh()
       }, 750)
       this.$nextTick(() => {
-        this.scroll.refresh()
+        this.scroll&&this.scroll.refresh()
       })
     }
   }
@@ -154,7 +152,6 @@ h2 {
 .item {
   border: 1px solid #ccc;
   /* padding: 20px 0; */
-  margin-bottom: 10px;
   margin: 10px;
   border-radius: 5px;
 }

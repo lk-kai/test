@@ -138,7 +138,7 @@
         </Layout>
       </Layout>
     </Layout>
-    <Mark ref="mark" @sub="sub"></Mark>
+    <Mark ref="mark" @sub="sub" :row="selectId"></Mark>
   </div>
 </template>
 <script>
@@ -270,16 +270,16 @@ export default {
         id: this.selectId,
         comments: comment
       })
-        .then((result) => {
+        .then(result => {
           console.log(result)
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
     },
     set(row, index) {
       console.log(row, index)
-      this.selectId = row.id
+      this.selectId = row
       this.$refs.mark.show()
     },
     edit(row) {
@@ -327,10 +327,10 @@ export default {
           userName: this.userName
         },
         pageObject: { currentPage: this.pageNum, pageSize: this.pageSize }
-      }).then((result) => {
+      }).then(result => {
         if (result.status === 200) {
           let res = result.data.data
-          res.forEach((item) => {
+          res.forEach(item => {
             item.availableAmount = '￥' + item.availableAmount
             if (item.comments) {
               item.comments = item.comments + '%'

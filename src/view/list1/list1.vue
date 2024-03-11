@@ -1,6 +1,6 @@
 <template>
   <div>
-    <List :list="list" @pull="pull" ref="list" @a="a"></List>
+    <List v-if="list.length" :list="list" @pull="pull" ref="list" @a="a"></List>
     <Mark ref="mark"></Mark>
   </div>
 </template>
@@ -24,11 +24,11 @@ export default {
     this._getList()
   },
   methods: {
-    a(item) {
-      console.log(item)
-      this.$refs.mark.item = item
-      this.$refs.mark.show()
-    },
+    // a(item) {
+    //   console.log(item)
+    //   this.$refs.mark.item = item
+    //   this.$refs.mark.show()
+    // },
     _getList() {
       getList1()
         .then((res) => {

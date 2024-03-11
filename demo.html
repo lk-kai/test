@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport'
+        content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+<script>
+  function Parent2() {
+    this.name = 'parent2';
+    this.play = [1, 2, 3]
+    // console.log(this)
+  }
+  function Child2() {
+    this.type = 'child2';
+    // console.log(this)
+
+  }
+
+  console.log(Child2.prototype)
+  const a = new Child2()
+  Child2.prototype = new Parent2();
+  // console.dir(Child2.prototype)
+  const b = new Child2()
+  console.log(a,b)
+  const obj = {
+    name: 'zs',
+    age: 18
+  }
+  Object.defineProperty(obj, 'name', {
+    value: 'ls'
+  })
+  console.log(obj)
+
+  console.log(Object.prototype.toString.bind(1)().slice(8,-1) === 'Number')
+  console.log(1,'1')
+</script>
+</body>
+</html>

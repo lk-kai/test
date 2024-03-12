@@ -1,5 +1,6 @@
 <template>
   <div class='screen'>
+    1
     {{ mediaStream }}
     <video ref='video' class='video' controls></video>
   </div>

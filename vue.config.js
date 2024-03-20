@@ -1,13 +1,12 @@
 var appData = require('./data.json')
 var list = appData.list
 var list2 = appData.list2
-const path = require('path')
+// const path = require('path')
 const axios = require('axios')
-const TerserPlugin = require('terser-webpack-plugin')
+// const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   devServer: {
-    publicPath: '/test',
-    assetsDir: 'test',
+    publicPath: '/',
     proxy: {
       '/api': {
         //将www.exaple.com印射为/apis
@@ -84,7 +83,7 @@ module.exports = {
     })
   },
   parallel: false,
-  chainWebpack: config => {
-    config.output.globalObject('this')
-  }
+  // chainWebpack: config => {
+  //   config.output.globalObject('this')
+  // }
 }

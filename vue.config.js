@@ -6,8 +6,8 @@ const axios = require('axios')
 const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   devServer: {
-    public: '/test/',
-    disableHostCheck: true,
+    publicPath: '/test',
+    assetsDir: 'test',
     proxy: {
       '/api': {
         //将www.exaple.com印射为/apis
